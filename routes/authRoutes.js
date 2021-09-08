@@ -8,12 +8,20 @@ module.exports = (app) => {
     })
   );
 
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      res.redirect("/surveys");
+    }
+  );
 
   app.get("/api/logout", (req, res) => {
     // passport automatically attaches the user property to the req object
+
     req.logout();
-    res.send(req.user);
+
+    res.redirect("/");
   });
 
   app.get("/api/current_user", (req, res) => {
@@ -22,5 +30,11 @@ module.exports = (app) => {
 
     // passport automatically attaches the user property to the req object
     res.send(req.user);
+  });
+
+  app.get("/test", (req, res) => {
+    const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    console.log(ip); // ip address of the user
+    res.send({ hi: ip });
   });
 };
