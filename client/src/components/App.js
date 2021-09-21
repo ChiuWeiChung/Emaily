@@ -6,6 +6,9 @@ import * as actions from "../actions/index";
 
 import Header from "./Header";
 import Landing from "./Landing";
+import Dashboard from "./Dashboard";
+import SurveyNew from "./surveys/SurveyNew";
+
 // actions.fetchUser()
 class App extends React.Component {
   componentDidMount() {
@@ -18,11 +21,12 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Header />
+            <Switch>
+              <Route path="/surveys/new" component={SurveyNew} />
+              <Route path="/surveys" component={Dashboard} />
+              <Route path="/" component={Landing} />
+            </Switch>
           </div>
-          <Switch>
-            <Route path="/surveys">Dashboard</Route>
-            <Route path="/" component={Landing} />
-          </Switch>
         </BrowserRouter>
       </div>
     );

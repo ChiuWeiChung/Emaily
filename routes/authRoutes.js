@@ -33,8 +33,10 @@ module.exports = (app) => {
   });
 
   app.get("/test", (req, res) => {
-    const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    console.log(ip); // ip address of the user
-    res.send({ hi: ip });
+    const host = req.get("host");
+    // const origin = req.get("origin");
+    // const userIP = req.socket.remoteAddress;
+
+    res.send({ hi: host });
   });
 };
